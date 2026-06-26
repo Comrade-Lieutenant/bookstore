@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  lint-and-typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: uv sync --frozen --all-packages
+
+      - name: Run Ruff (All Workspaces)
+        run: uvx ruff check
+
+      - name: Run Mypy
+        env:
+          DJANGO_SETTINGS_MODULE: config.settings
+          SECRET_KEY: "ci-dummy-key"
+          DATABASE_URL: "sqlite:///:memory:"
+          PYTHON_PATH: ${{ github.workspace }}
+        run: uvx mypy .
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync --frozen --all-packages
+
+      - name: Run Django Tests
+        env:
+          SECRET_KEY: "ci-dummy-key"
+          ALLOWED_HOSTS: "localhost"
+          DATABASE_URL: "sqlite:///:memory:"
+          DB_NAME: "Name"
+          DB_USER: "User"
+          DB_PASSWORD: "Password"
+        run: uv run python manage.py test
