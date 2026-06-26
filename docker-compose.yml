@@ -1,0 +1,42 @@
+# Docker Configuration File
+services:
+  web:
+    # Tells docker to build the image using the Dockerfile in the current directory
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Ensures container runs arm64 architecture
+    platform: linux/arm64
+    # Forwards port 8000 from my physical computer to port 8000 inside the container
+    ports:
+      - "8000:8000"
+    # Tells docker to start the database container befre starting this web container
+    depends_on:
+      - db 
+    # Forces python to output logs directly to terminal without buffering
+    environment:
+      - PYTHONUNBUFFERED=1
+    # Mounts current local project into container's (.:/app) folder
+    volumes:
+      - .:/bookstore
+    # Default command that starts web application
+    command: uv run python /bookstore/manage.py runserver 0.0.0.0:8000
+
+  db:
+    # Downloads postgres 17 instead of building one from scratch
+    image: postgres:17
+    # Maps a dedicated storage area inside the container to named volume on computer (Ensures database data won't disappear after shutting down container)
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    # Configures postgresql to allow any connection w/o a password
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+    # Periodically run command every 5 sec if database crashes or initializing and flags to prevent other services from interacting with a broken database
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      retries: 5
+
+# Creates the storage volume used by container database, allowing docker to manage its lifecycle in the background 
+volumes:
+  postgres_data:
