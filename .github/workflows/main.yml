@@ -30,12 +30,12 @@ jobs:
 
       - name: Run Mypy
         # Mypy needs DJANGO_SETTINGS_MODULE and DATABASE_URL
-        # Django needs a SECRET_KEY and PYTHON_PATH
+        # Django needs a SECRET_KEY and PYTHONPATH
         env:
           DJANGO_SETTINGS_MODULE: config.settings
           SECRET_KEY: "ci-dummy-key"
           DATABASE_URL: "sqlite:///:memory:"
-          PYTHON_PATH: ${{ github.workspace }}
+          PYTHONPATH: ${{ github.workspace }}
         run: uvx mypy .
 
   test:
@@ -61,9 +61,10 @@ jobs:
         uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
-        
+          python-version: "3.13"
+
       - name: Install dependencies
-        run uv sync --frozen --all-packages
+        run: uv sync --frozen --all-packages
 
       - name: Run Django Tests
         env:
@@ -101,7 +102,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}.${{ github.she }}
+            ghcr.io/${{ github.repository }}:${{ github.sha }}
             ghcr.io/${{ github.repository }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
