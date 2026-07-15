@@ -18,5 +18,3 @@ class CustomUserChangeForm(UserChangeForm):
             "email",
             "username",
         )
-
-        
