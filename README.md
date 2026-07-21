@@ -1,4 +1,4 @@
-### Left off -> CH5 html tests
+### Left off -> CH6 Signup
 
 # Notes:
 ## Workflow:
