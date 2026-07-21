@@ -104,7 +104,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}:${{ github.sha }}
-            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ string.lower(github.repository) }}:${{ github.sha }}
+            ghcr.io/${{ string.lower(github.repository) }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
