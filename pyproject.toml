@@ -10,6 +10,7 @@ dependencies = [
     "environs[django]>=15.0.1",
     "django-crispy-forms>=2.6",
     "crispy-bootstrap5>=2026.3",
+    "django-allauth>=65.18.0",
 ]
 
 [tool.mypy]

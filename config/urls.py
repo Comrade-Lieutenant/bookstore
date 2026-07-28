@@ -22,8 +22,7 @@ urlpatterns = [
     # Django admin
     path("admin/", admin.site.urls),
     # User Management
-    path("accounts/", include("django.contrib.auth.urls")),
+    path("accounts/", include("allauth.urls")),
     # Local Apps
-    path("accounts/", include("accounts.urls")),
     path("", include("pages.urls")),
 ]
