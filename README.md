@@ -1,4 +1,4 @@
-### Left off -> CH7 Bootstrap
+### Left off -> CH8 Social
 
 # Notes:
 ## Workflow:

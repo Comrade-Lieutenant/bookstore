@@ -10,6 +10,7 @@ dependencies = [
     "environs[django]>=15.0.1",
     "django-crispy-forms>=2.6",
     "crispy-bootstrap5>=2026.3",
+    "django-allauth>=65.18.0",
 ]
 
 [tool.mypy]
@@ -17,9 +18,18 @@ dependencies = [
 ignore_missing_imports = true
 
 # Ignore type annotation
-check_untyped_defs = false
+check_untyped_defs = true
 disallow_untyped_defs = false
+
+[tool.ruff]
+# exclude migration files from linting and formatting
+exclude = ["**/migrations/*"]
+
+[tool.ruff.lint]
+# Enable Isort
+extend-select = ["I", "RUF"]
 
 [tool.ruff.format]
 # Quotation Style
 quote-style = "double"
+
