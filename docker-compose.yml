@@ -13,9 +13,14 @@ services:
     # Tells docker to start the database container befre starting this web container
     depends_on:
       - db 
-    # Forces python to output logs directly to terminal without buffering
+    
+    # Environment Variables
     environment:
+      # Forces python to output logs directly to terminal without buffering
       - PYTHONUNBUFFERED=1
+      # Env Variables
+      - DJANGO_SECRET_KEY=django-insecure--ao((qm8f6*kl--9=as_)%j35hs#+d#8k_y&xga$$5)$$4n%(l99
+      - DJANGO_DEBUG=True
     # Mounts current local project into container's (.:/app) folder
     volumes:
       - .:/bookstore

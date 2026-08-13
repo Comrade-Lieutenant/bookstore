@@ -1,4 +1,4 @@
-### Left off -> CH8 Social
+### Left off -> CH10 Email
 
 # Notes:
 ## Workflow:
