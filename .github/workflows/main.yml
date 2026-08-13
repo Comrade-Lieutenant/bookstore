@@ -68,7 +68,7 @@ jobs:
 
       - name: Run Django Tests
         env:
-          SECRET_KEY: "ci-dummy-key"
+          DJANGO_SECRET_KEY: "ci-dummy-key"
           ALLOWED_HOSTS: "localhost"
           DATABASE_URL: "postgres://ci_user:ci_password@localhost:5432/ci_db"
           DB_NAME: "ci_db"
