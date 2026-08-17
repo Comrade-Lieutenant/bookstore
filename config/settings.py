@@ -69,6 +69,7 @@ ACCOUNT_SIGNUP_FIELDS = [
     "password1*",
     "password2*",
 ]
+DEFAULT_FROM_EMAIL = "admin@djangobookstore.com"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
