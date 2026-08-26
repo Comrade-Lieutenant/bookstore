@@ -11,11 +11,11 @@ permissions:
 
 jobs:
   # This runs Ruff (NOT THE APPLICATION)
-  lint-and-typecheck: 
+  lint-and-typecheck:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Install uv
         uses: astral-sh/setup-uv@v5
         with:
@@ -26,17 +26,17 @@ jobs:
         run: uv sync --frozen --all-packages
 
       - name: Run Ruff (All Workspaces)
-        run: uvx ruff check
+        run: uv run ruff check
 
       - name: Run Mypy
         # Mypy needs DJANGO_SETTINGS_MODULE and DATABASE_URL
         # Django needs a SECRET_KEY and PYTHONPATH
         env:
           DJANGO_SETTINGS_MODULE: config.settings
-          SECRET_KEY: "ci-dummy-key"
+          DJANGO_SECRET_KEY: "ci-dummy-key"
           DATABASE_URL: "sqlite:///:memory:"
           PYTHONPATH: ${{ github.workspace }}
-        run: uvx mypy .
+        run: uv run mypy .
 
   test:
     runs-on: ubuntu-latest
@@ -68,6 +68,7 @@ jobs:
 
       - name: Run Django Tests
         env:
+          DJANGO_SETTINGS_MODULE: config.settings
           DJANGO_DEBUG: "False"
           DJANGO_SECRET_KEY: "ci-dummy-key"
           ALLOWED_HOSTS: "localhost"
@@ -77,7 +78,7 @@ jobs:
           DB_PASSWORD: "ci_password"
           DB_HOST: "localhost"
           DB_PORT: "5432"
-        run: uv run python manage.py test 
+        run: uv run python manage.py test
 
   build-and-push:
     needs: [lint-and-typecheck, test]
@@ -88,7 +89,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Lowercase Repository Name 
+      - name: Lowercase Repository Name
         run: |
           echo "REPO_LOWER=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
 
