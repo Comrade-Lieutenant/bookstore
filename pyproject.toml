@@ -21,6 +21,10 @@ ignore_missing_imports = true
 check_untyped_defs = true
 disallow_untyped_defs = false
 
+[[tool.mypy.overrides]]
+module = "*.migrations.*"
+ignore_errors = true
+
 [tool.ruff]
 # exclude migration files from linting and formatting
 exclude = ["**/migrations/*"]
