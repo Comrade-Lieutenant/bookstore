@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     # Apps
     "accounts",
     "pages",
+    "books",
 ]
 
 AUTH_USER_MODEL = "accounts.CustomUser"

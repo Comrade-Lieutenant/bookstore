@@ -1,5 +1,6 @@
-### Left off -> CH10 Email
+### Left off -> CH11 UUID
 
+# - Ch10 Email (Practice SMTP & Web API email setup with providers)
 # Notes:
 ## Workflow:
     * Any backend feature (x), is a machine that transforms intent into a permanent result
