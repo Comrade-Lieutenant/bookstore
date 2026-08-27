@@ -1,11 +1,10 @@
-from django.test import  TestCase
+from django.test import TestCase
 from django.urls import reverse
 
 from .models import Book
 
 
 class BookTests(TestCase):
-
     @classmethod
     def setUpTestData(cls):
         cls.book = Book.objects.create(
