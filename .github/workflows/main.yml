@@ -81,7 +81,6 @@ jobs:
 
   build-and-push:
     needs: [lint-and-typecheck, test]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -107,7 +106,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          push: true
+          push: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
           tags: |
             ghcr.io/${{ env.REPO_LOWER }}:${{ github.sha }}
             ghcr.io/${{ env.REPO_LOWER }}:latest
