@@ -1,4 +1,4 @@
-### Left off -> CH11 UUID
+### Left off -> CH13 Admin
 
 # - Ch10 Email (Practice SMTP & Web API email setup with providers)
 # Notes:
@@ -94,3 +94,9 @@
 ## Testing
     - Write many unit tests (tests that check specific functionality)  and a small number of integration tests (large, slow, and used to test an entire application or user flow like payment that covers multiple screens)
     - To write unit tests [TestCase] is needed
+
+
+## Production Aspects
+    - django-stores (storing all media files on a service like Amazon's S3 Buckets)> A true production website would have a CDN (Content Delivery Network) for storing all media files rather than a server (which we currently have). Always treat user-generated media files with caution. 
+
+    - Hosting services (like Heroku) have an Ephemeral File System which boots a clean copy from the most recent deploy (stored on the docker, kubernetes, AWS Lambda, or Amazon S3). Once the service is shutdown or contianer/pods deleted, the files are also deleted
