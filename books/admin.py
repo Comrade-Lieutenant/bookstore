@@ -8,9 +8,7 @@ class ReviewInline(admin.TabularInline):
 
 
 class BookAdmin(admin.ModelAdmin):
-    inlines = (
-        ReviewInline,
-    )
+    inlines = (ReviewInline,)
 
     list_display = (
         "title",

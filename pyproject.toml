@@ -32,7 +32,7 @@ exclude = ["**/migrations/*"]
 
 [tool.ruff.lint]
 # Enable Isort
-extend-select = ["I", "RUF"]
+extend-select = ["I", "RUF", "UP", "FLY"]
 
 [tool.ruff.format]
 # Quotation Style
