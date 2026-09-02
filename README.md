@@ -1,4 +1,4 @@
-### Left off -> CH16 Performance
+### Left off -> CH16 Analyzing Pages
 
 # - Ch10 Email (Practice SMTP & Web API email setup with providers)
 # Notes:
@@ -100,3 +100,7 @@
     - django-stores (storing all media files on a service like Amazon's S3 Buckets)> A true production website would have a CDN (Content Delivery Network) for storing all media files rather than a server (which we currently have). Always treat user-generated media files with caution. 
 
     - Hosting services (like Heroku) have an Ephemeral File System which boots a clean copy from the most recent deploy (stored on the docker, kubernetes, AWS Lambda, or Amazon S3). Once the service is shutdown or contianer/pods deleted, the files are also deleted
+
+    - Must contain comprehensive tests
+
+    - Performance becomes the main focus when there's a large amount of traffic to the website. Don't start off at optimization but have metrics to find where optimization is needed. Opimization comes down to 4 areas (database queries, caching, indexes, and compressing front-end images, Javascript, and CSS)

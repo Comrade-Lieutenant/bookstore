@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
+import socket
 from pathlib import Path
 
 from environs import Env
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "allauth",
     "allauth.account",
+    "debug_toolbar",
     # Apps
     "accounts",
     "pages",
@@ -73,14 +74,20 @@ ACCOUNT_SIGNUP_FIELDS = [
 DEFAULT_FROM_EMAIL = "admin@djangobookstore.com"
 
 MIDDLEWARE = [
+    # Debug Toolbar (High as possible but after encoding/gzip)
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    # Security & Sessions
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+    # Authentication (allauth depends on sess & auth)
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # Allauth Account Middleware (must go after AuthenticationMiddleware)
     "allauth.account.middleware.AccountMiddleware",
+    # Clickjacking protection
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -154,3 +161,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 # django-crispy-forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# django-debug-toolbar
+hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
