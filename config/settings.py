@@ -76,6 +76,8 @@ DEFAULT_FROM_EMAIL = "admin@djangobookstore.com"
 MIDDLEWARE = [
     # Debug Toolbar (High as possible but after encoding/gzip)
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    # Update Cache
+    "django.middleware.cache.UpdateCacheMiddleware",
     # Security & Sessions
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -88,6 +90,8 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
     # Clickjacking protection
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # Fetch Cache
+    "django.middleware.cache.FetchFromCacheMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -165,3 +169,8 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 # django-debug-toolbar
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
 INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
+
+# Cache
+CACHE_MIDDLEWARE_ALIAS = "default"
+CACHE_MIDDLEWARE_SECONDS = 604800
+CACHE_MIDDLEWARE_KEY_PREFIX = ""
