@@ -94,6 +94,11 @@ MIDDLEWARE = [
     "django.middleware.cache.FetchFromCacheMiddleware",
 ]
 
+# Cache
+CACHE_MIDDLEWARE_ALIAS = "default"
+CACHE_MIDDLEWARE_SECONDS = 604800
+CACHE_MIDDLEWARE_KEY_PREFIX = ""
+
 ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
@@ -169,8 +174,3 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 # django-debug-toolbar
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
 INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
-
-# Cache
-CACHE_MIDDLEWARE_ALIAS = "default"
-CACHE_MIDDLEWARE_SECONDS = 604800
-CACHE_MIDDLEWARE_KEY_PREFIX = ""
